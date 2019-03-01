@@ -6,8 +6,12 @@ In oreder to implement microservice using kubernetes we first need to create a k
 1. Take a AWS EC2 instance and install kubectl . Issue following commands to install kubectl in an AWS EC2 ubuntu instance - 
   
       apt-get update && apt-get install -y apt-transport-https
+      
       curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+      
       echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+      
       apt-get update
+      
       apt-get install -y kubectl
  
