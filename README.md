@@ -14,4 +14,14 @@ In oreder to implement microservice using kubernetes we first need to create a k
       apt-get update
       
       apt-get install -y kubectl
+  
+ 2. Install KOPS in that EC2 instance - In order to install KOPS issue following commands - 
+ 
+    wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
+    
+    chmod +x kops-linux-amd64 [ required based on your permission ]
+
+    mv kops-linux-amd64 /usr/local/bin/kops
+
+
  
