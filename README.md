@@ -23,5 +23,26 @@ In oreder to implement microservice using kubernetes we first need to create a k
 
     mv kops-linux-amd64 /usr/local/bin/kops
 
-
+3. Install AWS CLI - to install AWS CLI issue following command 
+    
+    apt install python-pip 
+    
+    pip install awscli
+    
+    
+4. Create a AWS User and give the user following permissions 
+  
+  AmazonEC2FullAccess
+  
+  AmazonRoute53FullAccess
+  
+  AmazonS3FullAccess
+  
+  IAMFullAccess
+  
+  AmazonVPCFullAccess
+  
+  Here I create an user called kops and assign the required accessess. 
+  
+ 
  
