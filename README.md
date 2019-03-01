@@ -44,8 +44,31 @@ In oreder to implement microservice using kubernetes we first need to create a k
   
   Here I create an user called kops and assign the required accessess. 
   
-5. Create AWS S3 bucket - Kubernetes clustser's uses AWS S3 bucket's to store information about cluster like Number of Nodes , instance type of each node , kubernetes version . During cluster formation these states are stored and any subsequent changes in cluster formation are also stored in the bucket. To create S3 bucket issue below command - 
+ 
+5. Create AWS Route 53 - DNS is optional in case , kops version is 1.6.2 or more . Kubernetes uses DNS name to lookup etcd and nodes uses DNS to communicate with masters . Issue command below to create a Route hosted Zone 
 
-    aws s3api create-bucket --bucket kubernetes-microservice-io
- 
- 
+aws route53 create-hosted-zone --name sample.microservice.com --caller-reference 1
+
+6. Create AWS S3 bucket - Kubernetes clustser's uses AWS S3 bucket's to store information about cluster like Number of Nodes , instance type of each node , kubernetes version . During cluster formation these states are stored and any subsequent changes in cluster formation are also stored in the bucket. To create S3 bucket issue below command - 
+
+    aws s3 mb s3://bucket.sample.microservice.com
+
+7. Prepare environment variable - 
+
+export followings 
+
+export KOPS_STATE_STORE=s3://bucket.sample.microservice.com
+
+export KOPS_CLUSTER_NAME=cluster.sample.microservice.com
+
+8. If you are using ubuntu please use ssh-keygen commmands to generate rsa key 
+
+9.  Create cluster configuration - Issue following commands to create cluster definition . This command will not create cluster physcially, instead this will prepare a cluster definition .
+
+ kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a --name=${KOPS_CLUSTER_NAME}  --ssh-public-key ~/.ssh/id_rsa.pub
+
+10. Form Physical CLuster - Issue below commands to create physical cluster . 
+
+kops upgrade cluster --name cluster.sample.microservice.com --state s3://bucket.sample.microservice.com --yes
+
+11. Validate Cluster formation and check connection of kubectl 
