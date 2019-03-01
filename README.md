@@ -47,7 +47,7 @@ In oreder to implement microservice using kubernetes we first need to create a k
  
 5. Create AWS Route 53 - DNS is optional in case , kops version is 1.6.2 or more . Kubernetes uses DNS name to lookup etcd and nodes uses DNS to communicate with masters . Issue command below to create a Route hosted Zone 
 
-aws route53 create-hosted-zone --name sample.microservice.com --caller-reference 1
+aws route53 create-hosted-zone --name sample.microservice.com --caller-reference 1. Incase you dont have a public DNS name then create private DNS
 
 6. Create AWS S3 bucket - Kubernetes clustser's uses AWS S3 bucket's to store information about cluster like Number of Nodes , instance type of each node , kubernetes version . During cluster formation these states are stored and any subsequent changes in cluster formation are also stored in the bucket. To create S3 bucket issue below command - 
 
@@ -65,10 +65,12 @@ export KOPS_CLUSTER_NAME=cluster.sample.microservice.com
 
 9.  Create cluster configuration - Issue following commands to create cluster definition . This command will not create cluster physcially, instead this will prepare a cluster definition .
 
- kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a --name=${KOPS_CLUSTER_NAME}  --ssh-public-key ~/.ssh/id_rsa.pub
+
+ 
+ kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a --name=${KOPS_CLUSTER_NAME}  --ssh-public-key ~/.ssh/id_rsa.pub --dns=private
 
 10. Form Physical CLuster - Issue below commands to create physical cluster . 
 
-kops upgrade cluster --name cluster.sample.microservice.com --state s3://bucket.sample.microservice.com --yes
+kops update cluster --name cluster.sample.microservice.com --yes
 
 11. Validate Cluster formation and check connection of kubectl 
