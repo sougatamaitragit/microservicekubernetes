@@ -1,4 +1,4 @@
-# microservicekubernetes
+# Spring Microservice Using Kubernetes
 Spring Boot Kubernetes Microservice Example
 
 In oreder to implement microservice using kubernetes we first need to create a kubernetes cluster ( coniating Master and Worker Nodes) . In currrent POC I have used AWS Cloud as the cloud provider where i have 2 worker nodes and 1 master node. In oreder to create Kubernetes cluster in AWS , we need to have KOPS utility . So we first install KOPS in a simple node and then use appropriate KOPS commands to create kubernetes cluster in AWS. Following steps are follwed to create Kubernetes Clusters using KOPS.
