@@ -44,5 +44,8 @@ In oreder to implement microservice using kubernetes we first need to create a k
   
   Here I create an user called kops and assign the required accessess. 
   
+5. Create AWS S3 bucket - Kubernetes clustser's uses AWS S3 bucket's to store information about cluster like Number of Nodes , instance type of each node , kubernetes version . During cluster formation these states are stored and any subsequent changes in cluster formation are also stored in the bucket. To create S3 bucket issue below command - 
+
+    aws s3api create-bucket --bucket kubernetes-microservice-io
  
  
